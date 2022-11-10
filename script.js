@@ -14,6 +14,19 @@ async function getData() {
     return cleaned;
 }
 
+function createModel() {
+    // Create a sequential model
+    const model = tf.sequential();
+
+    // Add a single input layer
+    model.add(tf.layers.dense({inputShape: [1], units: 1, useBias: true}));
+
+    // Add an output layer
+    model.add(tf.layers.dense({units: 1, useBias: true}));
+
+    return model;
+}
+
 async function run() {
     // Load and plot the original input data that we are going to train on.
     const data = await getData();
@@ -33,6 +46,9 @@ async function run() {
     );
 
     // More code will be added below
+    // Create the model
+    const model = createModel();
+    tfvis.show.modelSummary({name: 'Model Summary'}, model);
 }
 
 document.addEventListener('DOMContentLoaded', run);
